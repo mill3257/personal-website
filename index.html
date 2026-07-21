@@ -1,96 +1,833 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script defer src="/_vercel/insights/script.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css"
-    />
-    <title>Vercel HTML Starter</title>
-    <meta
-      name="description"
-      content="High-performance HTML based website template."
-    />
-  </head>
-  <body>
-    <h1>Vercel HTML Starter</h1>
-    <p>
-      This template is a simple, but powerful single
-      <code>index.html</code> file deployed to
-      <a href="https://vercel.com">Vercel</a>. When your site is deployed, all
-      static assets (like HTML, JavaScript, CSS, images, and more) are deployed
-      globally to every
-      <a href="https://vercel.com/docs/concepts/edge-network/overview"
-        >Vercel Edge Network</a
-      >
-      region.
-    </p>
-    <h2>Simple, privacy-friendly analytics</h2>
-    <p>
-      Want to understand your visitor traffic? Vercel Analytics gives you
-      first-party, privacy-friendly traffic analytics for your HTML site. This
-      template is already configured using the following script:
-    </p>
-    <pre><code>&lt;script defer src="/_vercel/insights/script.js"&gt;&lt;/script&gt;</code></pre>
-    <p>
-      Learn more about
-      <a href="https://vercel.com/analytics">Vercel Analytics</a>.
-    </p>
-    <h2>Integrated with git</h2>
-    <p>
-      Deploying updates to your site is as simple as
-      <code>git push</code> thanks to Vercel's advanced
-      <a href="https://vercel.com/docs/concepts/git">Git Integration</a>.
-      Support for GitHub, GitLab, Bitbucket is zero-configuration, and with the
-      flexible Vercel CLI and API, you can integrate with any tool possible.
-    </p>
-    <p>
-      Learn more about
-      <a href="https://vercel.com/docs/concepts/git">Git Integration</a>.
-    </p>
-    <h2>Fast <code>gzip</code> compression</h2>
-    <p>
-      To help ensure the smallest possible file sizes for your static assets,
-      the Vercel Edge Network compresses files by default using
-      <code>gzip</code>. You can also optionally use
-      <code>brotli</code> compressesion if you prefer.
-    </p>
-    <p>
-      Learn more about
-      <a href="https://vercel.com/docs/concepts/edge-network/compression"
-        >compression</a
-      >.
-    </p>
-    <h2>Advanced routing configuration</h2>
-    <p>
-      Vercel gives you a variety of ways to configure the routing of your
-      website. For example, adding redirects, rewrites, or headers to your page.
-      While you can use <code>vercel.json</code> to define these through JSON,
-      you can also express your routing configuration as code using
-      <a href="https://vercel.com/docs/concepts/functions/edge-middleware"
-        >Vercel Edge Middleware</a
-      >.
-    </p>
-    <p>
-      Middleware runs before the
-      <a href="https://vercel.com/docs/concepts/edge-network/caching"
-        >Vercel Edge Network Cache</a
-      >, so you can configure routing exactly as your application needs. For
-      example, this template uses <code>middleware.js</code> defined in the root
-      of the repository to add additional security headers to the site:
-    </p>
-    <pre><code>referrer-policy: origin-when-cross-origin
-strict-transport-security: max-age=31536000; includeSubDomains; preload
-x-content-type-options: nosniff
-x-dns-prefetch-control: on
-x-frame-options: DENY</code></pre>
-    <p>
-      Learn more about
-      <a href="https://vercel.com/docs/concepts/functions/edge-middleware"
-        >Vercel Edge Middleware</a
-      >.
-    </p>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quinton Miller</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Font: Instrument Sans (Option D) + JetBrains Mono for labels/tags -->
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── Reset ───────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    /* ── Tokens ──────────────────────────────────────────── */
+    :root {
+      --bg:          #0A0A0A;
+      --bg-card:     #141414;
+      --bg-hover:    #1C1C1C;
+      --border:      #272727;
+      --border-hi:   #383838;
+
+      --gold:        #C28B30;
+      --gold-soft:   #D4A85A;
+      --gold-dim:    #5C3D0A;
+      --gold-glow:   rgba(194, 139, 48, 0.12);
+
+      --text-1:      #EDEDED;
+      --text-2:      #8A8A8A;
+      --text-3:      #444444;
+
+      --font-head:   'Instrument Sans', sans-serif;
+      --font-body:   'Instrument Sans', sans-serif;
+      --font-mono:   'JetBrains Mono', monospace;
+
+      --sidebar-w:   240px;
+      --content-max: 680px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text-1);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* ── Layout ──────────────────────────────────────────── */
+    .layout { display: flex; min-height: 100vh; }
+
+    /* ── Sidebar ─────────────────────────────────────────── */
+    .sidebar {
+      width: var(--sidebar-w);
+      position: fixed;
+      top: 0; left: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid var(--border);
+      background: var(--bg);
+      padding: 2.5rem 1.75rem;
+      z-index: 100;
+    }
+
+    .sidebar-logo {
+      font-family: var(--font-head);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--text-1);
+      margin-bottom: 0.25rem;
+    }
+
+    .sidebar-tagline {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--gold-soft);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 3rem;
+    }
+
+    nav ul { list-style: none; display: flex; flex-direction: column; gap: 0.125rem; }
+
+    nav a {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-2);
+      text-decoration: none;
+      transition: color 0.15s, background 0.15s;
+    }
+
+    nav a:hover, nav a.active { color: var(--text-1); background: var(--bg-hover); }
+    nav a.active { color: var(--gold-soft); }
+
+    .nav-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--border-hi);
+      flex-shrink: 0;
+      transition: background 0.15s;
+    }
+    nav a.active .nav-dot, nav a:hover .nav-dot { background: var(--gold-soft); }
+
+    .sidebar-footer { margin-top: auto; display: flex; flex-direction: column; gap: 0.75rem; }
+
+    .social-links { display: flex; gap: 0.75rem; }
+    .social-links a {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-3);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.15s;
+    }
+    .social-links a:hover { color: var(--gold-soft); }
+
+    .availability { display: flex; align-items: center; gap: 0.5rem; font-family: var(--font-body); font-size: 0.75rem; color: var(--text-2); }
+
+    .avail-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #34D399;
+      flex-shrink: 0;
+      box-shadow: 0 0 0 2px rgba(52, 211, 153, 0.2);
+      animation: pulse-green 2.5s ease-in-out infinite;
+    }
+    @keyframes pulse-green {
+      0%, 100% { box-shadow: 0 0 0 2px rgba(52, 211, 153, 0.2); }
+      50%       { box-shadow: 0 0 0 5px rgba(52, 211, 153, 0); }
+    }
+
+    /* ── Main ────────────────────────────────────────────── */
+    .main { margin-left: var(--sidebar-w); flex: 1; padding: 4rem 5vw 6rem; }
+    .content { max-width: var(--content-max); }
+
+    /* ── Sections ────────────────────────────────────────── */
+    section { padding-top: 4.5rem; margin-bottom: 1rem; }
+    section:first-of-type { padding-top: 0; }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+
+    .section-heading {
+      font-family: var(--font-head);
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+      color: var(--text-1);
+    }
+
+    /* ── Hero ────────────────────────────────────────────── */
+    #home {
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+
+    .hero-eng-logo {
+      position: absolute;
+      top: 0; right: 0;
+      height: 56px;
+      width: auto;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    .hero-top {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-photo {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--border-hi);
+      flex-shrink: 0;
+    }
+
+    .hero-photo-placeholder {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      border: 2px solid var(--border-hi);
+      background: var(--bg-card);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-head);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-3);
+    }
+
+    .hero-name {
+      font-family: var(--font-head);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: var(--text-1);
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero-name::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -6px;
+      height: 2px;
+      width: 100%;
+      background: var(--gold);
+      transform-origin: left center;
+      transform: scaleX(0);
+      animation: trace-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+    }
+    @keyframes trace-in {
+      0%   { transform: scaleX(0); opacity: 0.4; }
+      60%  { opacity: 1; }
+      100% { transform: scaleX(1); opacity: 1; }
+    }
+
+    /* Hero subtitle — now uses --font-body for consistency */
+    .hero-role {
+      font-family: var(--font-body);
+      font-size: clamp(0.9rem, 2vw, 1.05rem);
+      font-weight: 500;
+      color: var(--text-2);
+      margin-top: 1.25rem;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.01em;
+    }
+
+    .hero-role span { color: var(--gold-soft); }
+
+    .hero-bio {
+      max-width: 520px;
+      font-family: var(--font-body);
+      color: var(--text-2);
+      font-size: 0.95rem;
+      line-height: 1.75;
+      margin-bottom: 2rem;
+    }
+
+    .hero-cta { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.6rem 1.25rem;
+      border-radius: 6px;
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+
+    .btn-primary { background: var(--gold); color: #0A0A0A; }
+    .btn-primary:hover { background: var(--gold-soft); }
+    .btn-ghost { background: transparent; color: var(--text-2); border: 1px solid var(--border-hi); }
+    .btn-ghost:hover { border-color: var(--gold-soft); color: var(--gold-soft); }
+
+    /* ── About & My Story shared prose style ─────────────── */
+    .prose {
+      font-family: var(--font-body);
+      color: var(--text-2);
+      font-size: 0.95rem;
+      line-height: 1.8;
+      max-width: 560px;
+    }
+    .prose p + p { margin-top: 1rem; }
+    .prose strong { color: var(--text-1); font-weight: 600; }
+
+    /* ── My Story ─────────────────────────────────────────── */
+    .story-block {
+      font-family: var(--font-body);
+      color: var(--text-2);
+      font-size: 0.95rem;
+      line-height: 1.9;
+      max-width: 560px;
+      border-left: 2px solid var(--gold-dim);
+      padding-left: 1.25rem;
+    }
+    .story-block p + p { margin-top: 1.25rem; }
+
+    /* ── Education lockup ────────────────────────────────── */
+    .edu-block {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      padding: 1rem 1.25rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-top: 1.75rem;
+      margin-bottom: 1.5rem;
+      max-width: 420px;
+    }
+    .edu-logo { height: 44px; width: 44px; object-fit: contain; flex-shrink: 0; }
+    .edu-info { display: flex; flex-direction: column; gap: 0.125rem; }
+    .edu-name { font-family: var(--font-head); font-size: 0.875rem; font-weight: 700; color: var(--text-1); }
+    .edu-detail { font-family: var(--font-body); font-size: 0.775rem; color: var(--text-2); line-height: 1.5; }
+
+    /* ── Chips ───────────────────────────────────────────── */
+    .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+    .chip {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.04em;
+      padding: 0.3rem 0.75rem;
+      border-radius: 4px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-2);
+    }
+
+    /* ── Projects ────────────────────────────────────────── */
+    .projects-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      padding: 1.5rem 1.75rem;
+      text-decoration: none;
+      display: block;
+      transition: background 0.15s;
+    }
+    .project-card:not(:last-child) { border-bottom: 1px solid var(--border); }
+    .project-card:hover { background: var(--bg-hover); }
+    .project-card:hover .project-arrow { opacity: 1; transform: translate(2px, -2px); }
+
+    .project-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-name { font-family: var(--font-head); font-size: 1rem; font-weight: 700; color: var(--text-1); letter-spacing: -0.01em; }
+    .project-arrow { font-size: 1rem; color: var(--gold-soft); opacity: 0; transition: opacity 0.15s, transform 0.15s; flex-shrink: 0; margin-top: 2px; }
+    .project-desc { font-family: var(--font-body); font-size: 0.875rem; color: var(--text-2); line-height: 1.6; margin-bottom: 1rem; }
+
+    .project-tags { display: flex; flex-wrap: wrap; gap: 0.375rem; }
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.04em;
+      padding: 0.2rem 0.55rem;
+      border-radius: 3px;
+      background: var(--gold-glow);
+      border: 1px solid var(--gold-dim);
+      color: var(--gold-soft);
+    }
+    .tag.neutral { background: transparent; border-color: var(--border); color: var(--text-3); }
+
+    /* ── Experience ──────────────────────────────────────── */
+    .experience-list { display: flex; flex-direction: column; gap: 2rem; }
+    .exp-item { display: grid; grid-template-columns: 6rem 1fr; gap: 0 1.5rem; }
+    .exp-period { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.04em; color: var(--text-3); text-transform: uppercase; padding-top: 0.2rem; line-height: 1.5; }
+    .exp-role { font-family: var(--font-head); font-size: 0.95rem; font-weight: 700; color: var(--text-1); letter-spacing: -0.01em; margin-bottom: 0.125rem; }
+    .exp-company { font-family: var(--font-body); font-size: 0.8rem; color: var(--gold-soft); margin-bottom: 0.5rem; font-weight: 500; }
+    .exp-desc { font-family: var(--font-body); font-size: 0.875rem; color: var(--text-2); line-height: 1.65; }
+
+    /* ── Beyond Engineering ──────────────────────────────── */
+    .beyond-intro { font-family: var(--font-body); color: var(--text-2); font-size: 0.95rem; line-height: 1.8; max-width: 540px; margin-bottom: 1.75rem; }
+
+    .interests-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .interest-card { background: var(--bg-card); padding: 1.375rem 1.5rem; }
+    .interest-icon { font-size: 1.375rem; margin-bottom: 0.625rem; display: block; line-height: 1; }
+    .interest-title { font-family: var(--font-head); font-size: 0.875rem; font-weight: 700; color: var(--text-1); margin-bottom: 0.375rem; letter-spacing: -0.01em; }
+    .interest-desc { font-family: var(--font-body); font-size: 0.8rem; color: var(--text-2); line-height: 1.6; }
+
+    /* ── Contact ─────────────────────────────────────────── */
+    .contact-block { max-width: 480px; }
+    .contact-block p { font-family: var(--font-body); color: var(--text-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.75rem; }
+    .contact-links { display: flex; flex-direction: column; gap: 0.75rem; }
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+      padding: 0.875rem 1.125rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      text-decoration: none;
+      transition: border-color 0.15s, background 0.15s;
+      color: var(--text-1);
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+    }
+    .contact-link:hover { border-color: var(--gold-soft); background: var(--bg-hover); }
+    .contact-link-label { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-3); margin-left: auto; }
+
+    /* ── Divider ─────────────────────────────────────────── */
+    .divider { height: 1px; background: var(--border); margin: 4rem 0 0; }
+
+    /* ── Mobile nav ──────────────────────────────────────── */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 56px;
+      background: rgba(10, 10, 10, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      align-items: center;
+      justify-content: center;
+      padding: 0 1rem;
+      z-index: 200;
+    }
+    .mobile-links { display: flex; width: 100%; justify-content: space-around; }
+    .mobile-links a {
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-2);
+      text-decoration: none;
+      padding: 0.25rem 0.125rem;
+      transition: color 0.15s;
+    }
+    .mobile-links a:hover { color: var(--gold-soft); }
+
+    /* ── Responsive ──────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .sidebar    { display: none; }
+      .mobile-nav { display: flex; }
+      .main { margin-left: 0; padding: 5rem 1.25rem 4rem; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.25rem; }
+      .exp-period { margin-bottom: 0.25rem; }
+      .interests-grid { grid-template-columns: 1fr 1fr; }
+      .hero-top { gap: 1.25rem; }
+      .hero-eng-logo { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Mobile nav -->
+  <div class="mobile-nav" aria-label="Mobile navigation">
+    <div class="mobile-links">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#story">My Story</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#beyond">Beyond</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+
+  <div class="layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" aria-label="Site navigation">
+      <div class="sidebar-logo">Quinton Miller</div>
+      <div class="sidebar-tagline">EE &middot; DSP &middot; Embedded</div>
+
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="#home"       class="active"><span class="nav-dot" aria-hidden="true"></span>Home</a></li>
+          <li><a href="#about"              ><span class="nav-dot" aria-hidden="true"></span>About</a></li>
+          <li><a href="#story"              ><span class="nav-dot" aria-hidden="true"></span>My Story</a></li>
+          <li><a href="#projects"           ><span class="nav-dot" aria-hidden="true"></span>Projects</a></li>
+          <li><a href="#experience"         ><span class="nav-dot" aria-hidden="true"></span>Experience</a></li>
+          <li><a href="#beyond"             ><span class="nav-dot" aria-hidden="true"></span>Beyond Engineering</a></li>
+          <li><a href="#contact"            ><span class="nav-dot" aria-hidden="true"></span>Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="availability">
+          <span class="avail-dot" aria-hidden="true"></span>
+          Open to full-time roles beginning in 2027
+        </div>
+        <div class="social-links">
+          <a href="https://github.com/mill3257" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://linkedin.com/in/quinton-miller-electrical-engineer" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="/Quinton Miller Resume.pdf" target="_blank">Resume</a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+      <div class="content">
+
+        <!-- ── Intro ── -->
+        <section id="home" aria-label="Introduction">
+          <p class="section-label">Electrical Engineer</p>
+
+          <div class="hero-top">
+            <!--
+              PHOTO: Replace the div below with:
+                <img src="photo.jpg" alt="Quinton Miller" class="hero-photo" />
+              Drop photo.jpg in the same folder as index.html.
+            -->
+            <img src="profilephoto2.jpg" alt="Quinton Miller" class="hero-photo" />
+            <h1 class="hero-name">Quinton Miller</h1>
+          </div>
+
+          <p class="hero-role">
+            <span>DSP &middot; Embedded Systems &middot; AI/ML &middot; Hardware</span>
+          </p>
+          <p class="hero-bio">
+            Senior at Purdue studying Electrical Engineering, with a focus on low-level systems where hardware constraints and speed matter.
+          </p>
+          <div class="hero-cta">
+            <a href="#projects" class="btn btn-primary">See my work</a>
+            <a href="#contact"  class="btn btn-ghost">Get in touch</a>
+          </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- ── About ── -->
+        <section id="about" aria-labelledby="about-heading">
+          <p class="section-label">Background</p>
+          <h2 id="about-heading" class="section-heading">About Me</h2>
+          <div class="prose">
+            <p>
+              I'm a fourth-year undergraduate student at <strong>Purdue's Elmore Family School of Electrical and Computer Engineering</strong>,
+              concentrating in AI &amp; Machine Learning and Semiconductors &amp; Microelectronics, and minoring in Business Economics.
+              Most of my work focuses on low-level systems: embedded C, C++, and SystemVerilog.
+            </p>
+            <p>
+              I'm particularly drawn to problems where compute constraints actually matter: DSP pipelines running
+              on bare-metal targets, latency-sensitive and deterministic embedded applications, and hardware systems
+              where software decisions translate directly to physical performance. I'm actively
+              seeking <strong>full-time roles beginning in 2027</strong> in DSP, embedded systems,
+              AI/ML, and hardware engineering. Key industries of interest include big tech, defense, and semiconductor manufacturing.
+            </p>
+          </div>
+
+          <div class="edu-block">
+            <img src="purdue p.png" alt="Purdue University" class="edu-logo" />
+            <div class="edu-info">
+              <span class="edu-name">Purdue University</span>
+              <span class="edu-detail">B.S. Electrical Engineering<br>Expected graduation: May 2027</span>
+            </div>
+          </div>
+
+          <div class="chips" role="list" aria-label="Technical skills">
+            <span class="chip" role="listitem">C / C++</span>
+            <span class="chip" role="listitem">Embedded Systems</span>
+            <span class="chip" role="listitem">DSP</span>
+            <span class="chip" role="listitem">RTOS</span>
+            <span class="chip" role="listitem">SystemVerilog</span>
+            <span class="chip" role="listitem">Python</span>
+            <span class="chip" role="listitem">MATLAB</span>
+            <span class="chip" role="listitem">AI &amp; Machine Learning</span>
+            <span class="chip" role="listitem">Semiconductors</span>
+          </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- ── My Story ── -->
+        <section id="story" aria-labelledby="story-heading">
+          <p class="section-label">The journey</p>
+          <h2 id="story-heading" class="section-heading">My Story</h2>
+          <div class="story-block">
+            <p>
+              My first memory of being interested in electronics in particular is taking the back 
+              panel off of my guitar amplifier and seeing all of the vacuum tubes, transformers, and resistor/capacitor networks, which then inspired me to learn how it works under the hood. At the same time, I was attending Upper Saint Clair High School in Pittsburgh, PA, where I was taking technical classes that reinforced my love for engineering.
+            </p>
+            <p>
+              I started my engineering journey at Purdue as a First Year Engineering student considering Nuclear, Computer, and Electrical Engineering. When it was
+              time to decide what specific discipline I wanted to pursue, I chose Computer Engineering because I liked the idea of having a mix of the skillsets 
+              possessed by both electrical engineers and computer scientists. During the Spring 2026 semester, I signed up for Digital Signal Processing (ECE 43800)
+              by accident, confusing it with Computer Design and Prototyping (ECE 43700). Instead of dropping DSP, I decided to stay with it, and I enjoyed it so much 
+              that it became my main inspiration for changing my major to Electrical Engineering.
+            </p>
+            <p>
+              Looking to the future, I am excited about the opportunity to develop low-latency, real-time systems for a company whose mission and values closely 
+              align with my own. More specifically, I am looking for an environment where my daily work involves developing signal processing and embedded systems that reinforce American dominance in defense, aerospace, or technology.
+            </p>
+          </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- ── Projects ── -->
+        <section id="projects" aria-labelledby="projects-heading">
+          <p class="section-label">Work</p>
+          <h2 id="projects-heading" class="section-heading">Projects</h2>
+          <div class="projects-grid">
+
+            <a class="project-card" href="#" aria-label="Embedded Audio Processing and Playback System">
+              <div class="project-header">
+                <span class="project-name">Embedded Audio Processing Engine</span>
+                <span class="project-arrow" aria-hidden="true">↗</span>
+              </div>
+              <p class="project-desc">
+                Real-time audio playback and recording device implemented on a RP2350 microcontroller, optimizing memory usage to support
+                custom sound generation under constrained hardware resources. An I2C digital potentiometer was used for volume control, PWM for sound generation,
+                ADC for custom sound recording, and SPI for displaying information about the sound being played.
+              </p>
+              <div class="project-tags">
+                <span class="tag">C</span>
+                <span class="tag">Embedded</span>
+                <span class="tag">DSP</span>
+                <span class="tag neutral">Real-time</span>
+              </div>
+            </a>
+
+
+
+            <a class="project-card" href="#" aria-label="Add your third project">
+              <div class="project-header">
+                <span class="project-name">Maze Navigation Robot</span>
+                <span class="project-arrow" aria-hidden="true">↗</span>
+              </div>
+              <p class="project-desc">Designed and built an autonomous robot to navigate a maze using sensor feedback and control logic. Implemented navigation and path tracking algorithms in Python. The mechanical design featured an omnidirectional drivetrain that allowed for faster navigation, as the robot did not need to rotate to change directions.</p>
+              <div class="project-tags">
+                <span class="tag">Python</span>
+                <span class="tag">Computer Vision</span>
+                <span class="tag">Autonomous Systems</span>
+              </div>
+            </a>
+
+            <a class="project-card" href="#" aria-label="Algorithmic Trading Signal Processor">
+              <div class="project-header">
+                <span class="project-name">Algorithmic Trading Signal Processor (In Progress)</span>
+                <span class="project-arrow" aria-hidden="true">↗</span>
+              </div>
+              <p class="project-desc">
+                C++ system applying DSP techniques such as FFT spectral analysis, FIR/IIR
+                filters, and Kalman filtering to financial time-series data for signal extraction
+                and noise rejection.
+              </p>
+              <div class="project-tags">
+                <span class="tag">C++</span>
+                <span class="tag">FFT</span>
+                <span class="tag">Kalman Filter</span>
+                <span class="tag">LMS/RLS</span>
+              </div>
+            </a>
+
+          </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- ── Experience ── -->
+        <section id="experience" aria-labelledby="exp-heading">
+          <p class="section-label">History</p>
+          <h2 id="exp-heading" class="section-heading">Leadership Experience</h2>
+          <div class="experience-list">
+
+          <!--
+            <div class="exp-item">
+              <div class="exp-period">2024–Pres</div>
+              <div>
+                <div class="exp-role">AI Trainer</div>
+                <div class="exp-company">Handshake AI</div>
+                <div class="exp-desc">Evaluated and improved model outputs for technical domains including electrical engineering and embedded systems.</div>
+              </div>
+            </div>
+          -->
+
+            <div class="exp-item">
+              <div class="exp-period">2023–2024</div>
+              <div>
+                <div class="exp-role">Recruitment Chairman</div>
+                <div class="exp-company">Phi Kappa Sigma, Alpha Xi Chapter</div>
+                <div class="exp-desc">Led a recruitment committee to plan and execute recruitment-based events, coordinating all logistics,
+                  IFC compliance paperwork, and chapter-wide engagement. Directed multi-channel outreach programs targeting hundreds of prospective members
+                  through personalized messaging, social media advertising, and direct networking. Prioritized fit over volume throughout the recruitment process, contributing to a new member class with strong retention.
+                </div>
+              </div>
+            </div>
+
+            <div class="exp-item">
+              <div class="exp-period">2025-2026</div>
+              <div>
+                <div class="exp-role">Brotherhood Chairman</div>
+                <div class="exp-company">Phi Kappa Sigma, Alpha Xi Chapter</div>
+                <div class="exp-desc">Co-planned and executed a variety of brotherhood events, managing budgets and incorporating member feedback
+                  to drive engagement and chapter cohesion. Helped foster chapter culture by re-engaging inactive members, mediating internal conflicts, and
+                  facilitating recurring mental health discussions.
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- ── Beyond Engineering ── -->
+        <section id="beyond" aria-labelledby="beyond-heading">
+          <p class="section-label">Outside the lab</p>
+          <h2 id="beyond-heading" class="section-heading">Beyond Engineering</h2>
+          <p class="beyond-intro">
+            Electrical Engineering is not all of who I am. Here are a few things I spend my time on outside of coursework and projects:
+          </p>
+          <div class="interests-grid">
+
+            <div class="interest-card">
+              <span class="interest-icon" aria-hidden="true">🎸</span>
+              <div class="interest-title">Music &amp; Guitar</div>
+              <div class="interest-desc">I've played a number of instruments throughout my life, but guitar is the one that I've liked the most and stuck with for the longest amount of time. Learning how electric guitar pickups, effects pedals, and amplifiers work is a huge part of what pulled me into DSP in the first place. I'm also in the process of learning how to produce music and have a long-term project concept around AI-powered audio tools.</div>
+            </div>
+
+            <div class="interest-card">
+              <span class="interest-icon" aria-hidden="true">🏀</span>
+              <div class="interest-title">Sports &amp; Fitness</div>
+              <div class="interest-desc">I closely follow Purdue athletics, the Pittsburgh Steelers, the Toronto Raptors, and MMA. I also lift weights 5 times per week, run, and play pickup basketball.</div>
+            </div>
+
+            <div class="interest-card">
+              <span class="interest-icon" aria-hidden="true">♟</span>
+              <div class="interest-title">Chess</div>
+              <div class="interest-desc">I enjoy playing casually and studying theory. Building a chess engine in C was one of my earlier projects, which forced me to think about search algorithms and game-state representation.</div>
+            </div>
+
+            <div class="interest-card">
+              <span class="interest-icon" aria-hidden="true">🌲</span>
+              <div class="interest-title">Outdoors</div>
+              <div class="interest-desc">I love spending time outdoors, whether it be hiking, mountain biking, or fishing. Some of my favorite places I've been are Vanoise National Park in the French Alps, Cinque Terre National Park in Italy, and Acadia National Park in Maine. The next places I want to cross off my list are Yosemite and Wrangell-St. Elias National Park in Alaska.</div>
+            </div>
+
+            <div class="interest-card">
+              <span class="interest-icon" aria-hidden="true">🤝</span>
+              <div class="interest-title">Phi Kappa Sigma</div>
+              <div class="interest-desc">Active involvement in the Alpha Xi chapter at Purdue has been an indispensable resource for engaging in community service, participating in philanthropic events, and finding a tight-knit community at a large school. My leadership roles have taught me more about managing people than any class has.</div>
+            </div>
+
+            <div class="interest-card">
+              <span class="interest-icon" aria-hidden="true">📖</span>
+              <div class="interest-title">Reading</div>
+              <div class="interest-desc">I mostly read the classics, scientific literature in areas outside my expertise, philosophy, and work and business-related books. The most entertaining book I've read to date is <i>Crime and Punishment</i>, and the book that has had the largest impact on my day-to-day life is <i>Atomic Habits</i>.</div>
+            </div>
+
+
+          </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- ── Contact ── -->
+        <section id="contact" aria-labelledby="contact-heading">
+          <p class="section-label">Get in touch</p>
+          <h2 id="contact-heading" class="section-heading">Contact</h2>
+          <div class="contact-block">
+            <p>
+              I'm actively seeking full-time positions beginning in 2027 in DSP, embedded
+              systems, machine learning, and hardware engineering. If you're hiring or
+              know someone who is, I'd love to hear from you.
+            </p>
+            <div class="contact-links">
+              <a href="mailto:mill3257@purdue.edu" class="contact-link">
+                <span style="font-size:0.9rem;">✉</span>
+                mill3257@purdue.edu
+                <span class="contact-link-label">Email</span>
+              </a>
+              <a href="https://linkedin.com/in/quinton-miller-electrical-engineer/" target="_blank" rel="noopener" class="contact-link">
+                <span style="font-size:0.9rem; font-weight:700;">in</span>
+                linkedin.com/in/quinton-miller-electrical-engineer
+                <span class="contact-link-label">LinkedIn</span>
+              </a>
+              <a href="https://github.com/mill3257" target="_blank" rel="noopener" class="contact-link">
+                <span style="font-family:var(--font-mono); font-size:0.9rem;">gh</span>
+                github.com/mill3257
+                <span class="contact-link-label">GitHub</span>
+              </a>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('nav a');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(l => l.classList.remove('active'));
+          const active = document.querySelector(`nav a[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { threshold: 0.35 });
+
+    sections.forEach(s => observer.observe(s));
+  </script>
+</body>
 </html>
