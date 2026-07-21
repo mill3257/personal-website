@@ -7,15 +7,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-  <!-- Font: Instrument Sans (Option D) + JetBrains Mono for labels/tags -->
+  <!-- Font: Instrument Sans and JetBrains Mono for labels/tags -->
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
   <style>
-    /* ── Reset ───────────────────────────────────────────── */
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
 
-    /* ── Tokens ──────────────────────────────────────────── */
+
     :root {
       --bg:          #0A0A0A;
       --bg-card:     #141414;
@@ -37,7 +37,7 @@
       --font-mono:   'JetBrains Mono', monospace;
 
       --sidebar-w:   240px;
-      --content-max: 680px;
+      --content-max: 800px;
     }
 
     body {
@@ -49,10 +49,10 @@
       min-height: 100vh;
     }
 
-    /* ── Layout ──────────────────────────────────────────── */
+
     .layout { display: flex; min-height: 100vh; }
 
-    /* ── Sidebar ─────────────────────────────────────────── */
+ 
     .sidebar {
       width: var(--sidebar-w);
       position: fixed;
@@ -141,11 +141,11 @@
       50%       { box-shadow: 0 0 0 5px rgba(52, 211, 153, 0); }
     }
 
-    /* ── Main ────────────────────────────────────────────── */
-    .main { margin-left: var(--sidebar-w); flex: 1; padding: 4rem 5vw 6rem; }
-    .content { max-width: var(--content-max); }
 
-    /* ── Sections ────────────────────────────────────────── */
+.main { margin-left: var(--sidebar-w); flex: 1; padding: 4rem 5vw 6rem; display: flex; justify-content: center; }
+.content { max-width: var(--content-max); width: 100%; }
+
+
     section { padding-top: 4.5rem; margin-bottom: 1rem; }
     section:first-of-type { padding-top: 0; }
 
@@ -167,7 +167,7 @@
       color: var(--text-1);
     }
 
-    /* ── Hero ────────────────────────────────────────────── */
+
     #home {
       min-height: 60vh;
       display: flex;
@@ -243,7 +243,7 @@
       100% { transform: scaleX(1); opacity: 1; }
     }
 
-    /* Hero subtitle — now uses --font-body for consistency */
+    /* Hero subtitle */
     .hero-role {
       font-family: var(--font-body);
       font-size: clamp(0.9rem, 2vw, 1.05rem);
@@ -287,7 +287,7 @@
     .btn-ghost { background: transparent; color: var(--text-2); border: 1px solid var(--border-hi); }
     .btn-ghost:hover { border-color: var(--gold-soft); color: var(--gold-soft); }
 
-    /* ── About & My Story shared prose style ─────────────── */
+    /*About & My Story shared prose style */
     .prose {
       font-family: var(--font-body);
       color: var(--text-2);
@@ -298,7 +298,7 @@
     .prose p + p { margin-top: 1rem; }
     .prose strong { color: var(--text-1); font-weight: 600; }
 
-    /* ── My Story ─────────────────────────────────────────── */
+    /*My Story*/
     .story-block {
       font-family: var(--font-body);
       color: var(--text-2);
@@ -310,7 +310,7 @@
     }
     .story-block p + p { margin-top: 1.25rem; }
 
-    /* ── Education lockup ────────────────────────────────── */
+    /*Education lockup */
     .edu-block {
       display: flex;
       align-items: center;
@@ -328,7 +328,7 @@
     .edu-name { font-family: var(--font-head); font-size: 0.875rem; font-weight: 700; color: var(--text-1); }
     .edu-detail { font-family: var(--font-body); font-size: 0.775rem; color: var(--text-2); line-height: 1.5; }
 
-    /* ── Chips ───────────────────────────────────────────── */
+    /* Chips  */
     .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
     .chip {
       font-family: var(--font-mono);
@@ -341,7 +341,7 @@
       color: var(--text-2);
     }
 
-    /* ── Projects ────────────────────────────────────────── */
+    /*Projects */
     .projects-grid {
       display: flex;
       flex-direction: column;
@@ -387,7 +387,7 @@
     }
     .tag.neutral { background: transparent; border-color: var(--border); color: var(--text-3); }
 
-    /* ── Experience ──────────────────────────────────────── */
+    /* Experience*/
     .experience-list { display: flex; flex-direction: column; gap: 2rem; }
     .exp-item { display: grid; grid-template-columns: 6rem 1fr; gap: 0 1.5rem; }
     .exp-period { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.04em; color: var(--text-3); text-transform: uppercase; padding-top: 0.2rem; line-height: 1.5; }
@@ -395,7 +395,7 @@
     .exp-company { font-family: var(--font-body); font-size: 0.8rem; color: var(--gold-soft); margin-bottom: 0.5rem; font-weight: 500; }
     .exp-desc { font-family: var(--font-body); font-size: 0.875rem; color: var(--text-2); line-height: 1.65; }
 
-    /* ── Beyond Engineering ──────────────────────────────── */
+    /* Beyond Engineering*/
     .beyond-intro { font-family: var(--font-body); color: var(--text-2); font-size: 0.95rem; line-height: 1.8; max-width: 540px; margin-bottom: 1.75rem; }
 
     .interests-grid {
@@ -411,7 +411,7 @@
     .interest-title { font-family: var(--font-head); font-size: 0.875rem; font-weight: 700; color: var(--text-1); margin-bottom: 0.375rem; letter-spacing: -0.01em; }
     .interest-desc { font-family: var(--font-body); font-size: 0.8rem; color: var(--text-2); line-height: 1.6; }
 
-    /* ── Contact ─────────────────────────────────────────── */
+    /*Contact  */
     .contact-block { max-width: 480px; }
     .contact-block p { font-family: var(--font-body); color: var(--text-2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.75rem; }
     .contact-links { display: flex; flex-direction: column; gap: 0.75rem; }
@@ -432,10 +432,10 @@
     .contact-link:hover { border-color: var(--gold-soft); background: var(--bg-hover); }
     .contact-link-label { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-3); margin-left: auto; }
 
-    /* ── Divider ─────────────────────────────────────────── */
+    /*Divider  */
     .divider { height: 1px; background: var(--border); margin: 4rem 0 0; }
 
-    /* ── Mobile nav ──────────────────────────────────────── */
+    /* Mobile nav  */
     .mobile-nav {
       display: none;
       position: fixed;
@@ -461,7 +461,7 @@
     }
     .mobile-links a:hover { color: var(--gold-soft); }
 
-    /* ── Responsive ──────────────────────────────────────── */
+    /* Responsive */
     @media (max-width: 768px) {
       .sidebar    { display: none; }
       .mobile-nav { display: flex; }
@@ -530,11 +530,7 @@
           <p class="section-label">Electrical Engineer</p>
 
           <div class="hero-top">
-            <!--
-              PHOTO: Replace the div below with:
-                <img src="photo.jpg" alt="Quinton Miller" class="hero-photo" />
-              Drop photo.jpg in the same folder as index.html.
-            -->
+
             <img src="profilephoto2.jpg" alt="Quinton Miller" class="hero-photo" />
             <h1 class="hero-name">Quinton Miller</h1>
           </div>
