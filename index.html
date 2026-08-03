@@ -449,14 +449,21 @@
       padding: 0 1rem;
       z-index: 200;
     }
-    .mobile-links { display: flex; width: 100%; justify-content: space-around; }
+    .mobile-links { 
+      display: flex; 
+      width: 100%; 
+      justify-content: space-around; 
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
     .mobile-links a {
       font-family: var(--font-body);
-      font-size: 0.875rem;
+      font-size: 0.72rem;
       font-weight: 500;
       color: var(--text-2);
       text-decoration: none;
-      padding: 0.25rem 0.125rem;
+      padding: 0.25rem 0;
+      white-space: nowrap;
       transition: color 0.15s;
     }
     .mobile-links a:hover { color: var(--gold-soft); }
@@ -511,7 +518,7 @@
       <div class="sidebar-footer">
         <div class="availability">
           <span class="avail-dot" aria-hidden="true"></span>
-          Open to full-time roles beginning in 2027
+          Open to full-time roles beginning in January 2028
         </div>
         <div class="social-links">
           <a href="https://github.com/mill3257" target="_blank" rel="noopener">GitHub</a>
@@ -563,7 +570,7 @@
               I'm particularly drawn to problems where compute constraints actually matter: DSP pipelines running
               on bare-metal targets, latency-sensitive and deterministic embedded applications, and hardware systems
               where software decisions translate directly to physical performance. I'm actively
-              seeking <strong>full-time roles beginning in 2027</strong> in DSP, embedded systems,
+              seeking <strong>summer/fall 2027 internships and full-time roles beginning in January 2028</strong> in DSP, embedded systems,
               AI/ML, and hardware engineering. Key industries of interest include big tech, defense, and semiconductor manufacturing.
             </p>
           </div>
@@ -572,7 +579,7 @@
             <img src="purdue p.png" alt="Purdue University" class="edu-logo" />
             <div class="edu-info">
               <span class="edu-name">Purdue University</span>
-              <span class="edu-detail">B.S. Electrical Engineering<br>Expected graduation: May 2027</span>
+              <span class="edu-detail">B.S. Electrical Engineering<br>Expected graduation: December 2027</span>
             </div>
           </div>
 
